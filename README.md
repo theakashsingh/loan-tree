@@ -1,11 +1,17 @@
-# Loan Management Tree
+# Loan Tree ReactFlow
 
 A hierarchical loan relationship visualization tool built with React, ReactFlow, and Tailwind CSS. This application allows users to create, manage, and visualize complex loan structures with accounts, loans, and collateral in an interactive tree format.
 
 ## 🚀 Live Demo
 
-- **Live Application**: [https://loan-tree.netlify.app/](https://loan-tree.netlify.app/)
-- **GitHub Repository**: [https://github.com/theakashsingh/loan-tree](https://github.com/theakashsingh/loan-tree)
+- **Live Application**: [https://loan-tree-reactflow.netlify.app/](https://loan-tree-reactflow.netlify.app/)
+- **GitHub Repository**: [https://github.com/theakashsingh/loan-tree-reactflow](https://github.com/theakashsingh/loan-tree-reactflow)
+
+## 📸 Application Preview
+
+![Loan Management Tree Interface](https://github.com/theakashsingh/loan-tree-reactflow/blob/main/screenshot.png?raw=true)
+
+*The application interface showing the hierarchical tree structure view with expandable nodes, side panel for node details, and management controls. This view demonstrates the traditional tree layout alongside the ReactFlow canvas visualization.*
 
 ## 📋 Table of Contents
 
@@ -21,13 +27,26 @@ A hierarchical loan relationship visualization tool built with React, ReactFlow,
 
 ## ✨ Features
 
-- **Hierarchical Visualization**: Interactive tree structure showing loan relationships
-- **Multiple Node Types**: Support for Accounts, Loans, and Collateral
-- **Dynamic Node Management**: Add/delete nodes with real-time tree updates
-- **Side Panel Interface**: Detailed node information and management controls
-- **Responsive Design**: Works across different screen sizes
-- **JSON Export**: Export tree structure for data persistence
-- **Auto-layout**: Automatic positioning using Dagre layout algorithm
+- **Dual View Interface**: Both ReactFlow canvas and traditional tree structure views
+- **Hierarchical Visualization**: Interactive tree structure showing loan relationships using ReactFlow
+- **Multiple Node Types**: Support for Accounts, Loans, and Collateral with distinct visual styling
+- **Dynamic Node Management**: Add/delete nodes with real-time tree updates and automatic layout
+- **Side Panel Interface**: Detailed node information and management controls on the right side
+- **Expandable Tree View**: Traditional collapsible tree structure for easy navigation
+- **Responsive Design**: Canvas-based interface that works across different screen sizes
+- **JSON Export/Import**: Export tree structure for data persistence and sharing
+- **Auto-layout**: Automatic positioning using Dagre layout algorithm for optimal node placement
+- **Interactive Controls**: Pan, zoom, and selection capabilities built into ReactFlow
+- **Real-time Updates**: Immediate visual feedback when adding or removing nodes
+
+### Interface Components
+
+- **Tree Structure Panel**: Traditional hierarchical tree view with expand/collapse functionality
+- **Main Canvas**: Interactive ReactFlow canvas displaying the loan hierarchy
+- **Toolbar**: Quick action buttons for adding Account and Loan nodes
+- **Node Details Panel**: Right sidebar showing selected node information and actions
+- **Export Controls**: View JSON and Export functionality in the header
+- **Node Indicators**: Child count badges on parent nodes showing relationship depth
 
 ## 🏗️ Data Model
 
@@ -68,55 +87,70 @@ interface TreeNode {
 ## 🎨 Node Types
 
 ### Account Node
-- **Icon**: Blue folder icon
-- **Purpose**: Represents a customer's account
+- **Icon**: Blue folder icon with building symbol
+- **Purpose**: Represents a customer's account (root level)
 - **Children**: Can have multiple Loans
-- **Visual**: Blue background with account ID
+- **Visual**: Blue rounded rectangle with account ID (e.g., "c57dec")
+- **Badge**: Shows child count in top-right corner
 
 ### Loan Node  
-- **Icon**: Green circle with minus icon
-- **Purpose**: Represents individual loans
+- **Icon**: Green circle with horizontal line (minus) symbol
+- **Purpose**: Represents individual loans or sub-loans
 - **Children**: Can have Collateral and sub-Loans
-- **Visual**: Green background with loan ID
+- **Visual**: Green rounded rectangle with loan ID (e.g., "c9719a", "258b4a")
+- **Badge**: Shows child count for parent loans
+- **Description**: "A loan issued to an account"
 
 ### Collateral Node
-- **Icon**: Orange circle with "C" icon
-- **Purpose**: Represents collateral tied to loans
-- **Children**: Leaf nodes (no children allowed)
-- **Visual**: Orange background with collateral ID
+- **Icon**: Orange circle with "C" symbol
+- **Purpose**: Represents collateral tied to loans (leaf nodes)
+- **Children**: None - always terminal nodes
+- **Visual**: Orange rounded rectangle with collateral ID (e.g., "7bf49c", "6c4dd6")
+- **No Badge**: Leaf nodes don't show child counts
 
 ## 🎯 UX Design Decisions
 
+### Dual Interface Design
+- **Tree Structure Panel**: Traditional hierarchical list view on the left for familiar navigation
+- **Unified Selection**: Selecting nodes in either view updates the other and the side panel
+- **Complementary Views**: Users can choose their preferred interaction method
+
 ### Side Panel Layout
-- **Right-side positioning**: Keeps tree view unobstructed
-- **Contextual information**: Shows selected node details
+- **Right-side positioning**: Keeps both tree and canvas views unobstructed
+- **Contextual information**: Shows selected node details with descriptions
 - **Action-oriented**: Primary actions (Add Child, Delete) prominently displayed
-- **Clean separation**: Clear visual distinction between tree and details
+- **Clean separation**: Clear visual distinction between views and details
 
 ### Add/Delete Flow
 - **Add Child Nodes**: 
-  - Click on any node to select it
+  - Click on any node in either tree or canvas view to select it
   - Use "Add Child Node" section in side panel
   - Type-specific buttons (Add Loan, Add Collateral) based on parent type
-  - Immediate visual feedback with tree re-layout
+  - Immediate visual feedback in both tree and canvas views
 
 - **Delete Nodes**:
-  - Select target node
+  - Select target node from either view
   - Red "Delete Node" button in Actions section
-  - Confirmation message warns about cascading deletion
+  - Warning message: "This will delete the node and all its descendants"
   - Maintains tree integrity by removing all descendants
 
 ### Visual Hierarchy
-- **Color coding**: Distinct colors for each node type aid quick identification
-- **Indentation**: Clear parent-child relationships through visual nesting
-- **Icons**: Consistent iconography for immediate type recognition
-- **Interactive feedback**: Hover states and selection highlighting
+- **Tree View Features**:
+  - Expandable/collapsible nodes with arrow indicators
+  - Color-coded icons matching node types
+  - Child count badges on parent nodes
+  - Indented structure showing parent-child relationships
+- **Canvas View Features**:
+  - Color coding for node types
+  - Interactive positioning and connections
+  - Zoom and pan capabilities
+  - Visual edge connections between related nodes
 
 ### Navigation & Usability
-- **Single-click selection**: Simple interaction model
-- **Expandable nodes**: Collapsible tree sections for large structures
-- **Child count indicators**: Shows number of children per node
-- **Responsive design**: Adapts to different screen sizes
+- **Dual Selection Model**: Click selection works in both tree and canvas views
+- **Expandable Sections**: Collapsible tree nodes for managing large structures
+- **Child Count Indicators**: Shows number of children per node in both views
+- **Responsive Layout**: Adapts to different screen sizes with panel adjustments
 
 ## 🛠️ Installation
 
@@ -128,8 +162,8 @@ interface TreeNode {
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/theakashsingh/loan-tree.git
-   cd loan-tree
+   git clone https://github.com/theakashsingh/loan-tree-reactflow.git
+   cd loan-tree-reactflow
    ```
 
 2. **Install dependencies**
